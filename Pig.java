@@ -2,9 +2,14 @@ import java.util.*;
 
 public class Pig {
   public static void main(String[] args) {
-    turnPlayer();
-  /*  playGame();*/
+    playGame();
   }
+
+    public static void writeBlank(int number) {
+      for (int i = 1; i <= number; i++) {
+        System.out.println();
+      }
+    }
 
     public static int rollDice() {
       Random r = new Random();
@@ -26,9 +31,11 @@ public class Pig {
           sum = sum + roll;
           counter++;
         }
+        writeBlank(1);
         System.out.println("Points so far = " + sum);
       }
 
+      writeBlank(1);
       System.out.println("This turn the computer gained " + sum + " points!");
       return sum;
     }
@@ -38,20 +45,26 @@ public class Pig {
       int sum = 0;
       int choice = 1;
 
-      while (choice == 1); {
+      do {
+        writeBlank(1);
         System.out.print("Do you wish to roll(type 1), or hold(type 2)?: ");
         choice = console.nextInt();
         int roll = rollDice();
 
-        if (roll == 1) {
+        if (choice == 2) {
+          break;
+        } else if (roll == 1) {
           sum = 0;
           choice = 2;
         } else {
           sum = sum + roll;
         }
-        System.out.println("Points so far = " + sum);
-      }
 
+        writeBlank(1);
+        System.out.println("Points so far = " + sum);
+      } while (choice == 1);
+
+      writeBlank(1);
       System.out.println("This turn you gained " + sum + " points!");
       return sum;
     }
@@ -60,25 +73,35 @@ public class Pig {
       int computerTotal = 0;
       int playerTotal = 0;
 
-      while(computerTotal != 100 && playerTotal != 100) {
+      while(computerTotal < 100 && playerTotal < 100) {
+        writeBlank(2);
         System.out.println("Players Turn!");
         int playerSum = turnPlayer();
         playerTotal = playerTotal + playerSum;
+        writeBlank(1);
         System.out.println("Players total = " + playerTotal);
 
+        if (playerTotal >= 100) {
+          break;
+        }
+
+        writeBlank(2);
         System.out.println("Computers Turn!");
         int computerSum = turnComputer();
         computerTotal = computerTotal + computerSum;
+        writeBlank(1);
         System.out.println("Computers total = " + computerTotal);
       }
 
-      if (computerTotal == 100) {
+      if (computerTotal >= 100) {
+        writeBlank(2);
         System.out.println("Computer Wins!");
-      } else if (playerTotal == 100) {
+      } else if (playerTotal >= 100) {
+        writeBlank(2);
         System.out.println("You win!");
       } else {
+        writeBlank(2);
         System.out.println("You tied!");
       }
     }
-
 }
